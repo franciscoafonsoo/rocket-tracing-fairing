@@ -23,4 +23,4 @@ tracing-subscriber = { version = "0.3.18", features = [
     "smallvec",
 ] }
 uuid = { version = "1.8.0", features = ["v4"] }
-yansi = "0.5.1"
+yansi = "1.0.1"
