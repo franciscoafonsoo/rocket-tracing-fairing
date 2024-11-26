@@ -8,9 +8,9 @@ pub enum LogType {
     Json,
 }
 
-impl From<String> for LogType {
-    fn from(input: String) -> Self {
-        match input.as_str() {
+impl From<&str> for LogType {
+    fn from(input: &str) -> Self {
+        match input {
             "formatted" => Self::Formatted,
             "json" => Self::Json,
             _ => panic!("Unkown log type {}", input),

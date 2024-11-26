@@ -52,8 +52,11 @@ fn rocket() -> _ {
 
     LogTracer::init().expect("Unable to setup log tracer!");
 
-    let log_type =
-        LogType::from(std::env::var("LOG_TYPE").unwrap_or_else(|_| "formatted".to_string()));
+    let log_type = LogType::from(
+        std::env::var("LOG_TYPE")
+            .unwrap_or_else(|_| "formatted".to_string())
+            .as_str(),
+    );
     let log_level = LogLevel::from(
         std::env::var("LOG_LEVEL")
             .unwrap_or_else(|_| "normal".to_string())

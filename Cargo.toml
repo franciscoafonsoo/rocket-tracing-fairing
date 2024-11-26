@@ -1,6 +1,6 @@
 [package]
-name = "rocket-tracing-fairing"
-version = "0.1.2"
+name = "rocket-tracing-fairing-example"
+version = "0.1.3"
 edition = "2021"
 
 [lib]
