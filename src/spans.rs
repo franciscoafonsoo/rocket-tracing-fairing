@@ -39,7 +39,6 @@ impl Fairing for TracingFairing {
         }
     }
     async fn on_request(&self, req: &mut Request<'_>, _data: &mut Data<'_>) {
-        let user_agent = req.headers().get_one("User-Agent").unwrap_or("");
         let request_id = req
             .headers()
             .get_one("X-Request-Id")
@@ -47,18 +46,6 @@ impl Fairing for TracingFairing {
             .unwrap_or_else(|| Uuid::new_v4().to_string());
 
         req.local_cache(|| RequestId(Some(request_id.to_owned())));
-
-        let span = info_span!(
-            "request",
-            otel.name=%format!("{} {}", req.method(), req.uri().path()),
-            http.method = %req.method(),
-            http.uri = %req.uri().path(),
-            http.user_agent=%user_agent,
-            http.status_code = tracing::field::Empty,
-            http.request_id=%request_id
-        );
-
-        req.local_cache(|| TracingSpan::<Option<Span>>(Some(span)));
     }
 
     async fn on_response<'r>(&self, req: &'r Request<'_>, res: &mut Response<'r>) {
